@@ -1,0 +1,14 @@
+.nmk-colorswatch {
+	border: 1px solid #000;
+	float: left;
+	position: absolute;
+}
+.nmk-colorswatch-row {
+	clear: both;
+}
+.nmk-colorswatch-color {
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 2px;
+}
