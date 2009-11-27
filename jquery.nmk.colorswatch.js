@@ -59,7 +59,6 @@ $.widget('nmk.colorswatch', {
 			if (!keepOpen) {
 				$(document).unbind('mousedown keydown', detectBlur);
 				self.hide();
-				return false;
 			}
 		}
 		$(document).bind('mousedown keydown', detectBlur);
