@@ -49,6 +49,24 @@ $.widget('nmk.colorswatch', {
 	
 	show: function() {
 		this.swatch.show();
+		
+		var self = this;
+		function detectBlur(event) {
+			var swatch = $(event.target).closest('.nmk-colorswatch'),
+				keepOpen = (swatch.length && swatch[0] == self.swatch[0]) ||
+					(event.target == self.element[0]);
+			
+			if (!keepOpen) {
+				$(document).unbind('mousedown keydown', detectBlur);
+				self.hide();
+				return false;
+			}
+		}
+		$(document).bind('mousedown keydown', detectBlur);
+	},
+
+	hide: function() {
+		this.swatch.hide();
 	}
 });
 
