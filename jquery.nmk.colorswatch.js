@@ -18,9 +18,13 @@ $.widget('nmk.colorswatch', {
 		}
 		
 		var self = this;
-		this.element.click(function() {
-			self.show();
-		});
+		this.element
+			.bind('click.colorswatch', function() {
+				self.show();
+			})
+			.bind('change.colorswatch', function() {
+				self.value(this.value);
+			});
 		
 		return $('<div></div>')
 			.hide()
@@ -30,7 +34,8 @@ $.widget('nmk.colorswatch', {
 	_render: function() {
 		var row,
 			rowSize = this.options.rowSize,
-			swatch = this.swatch.empty();
+			swatch = this.swatch.empty(),
+			self = this;
 		
 		$.each(this.options.colors, function(i, color) {
 			if (!(i % rowSize)) {
@@ -42,7 +47,12 @@ $.widget('nmk.colorswatch', {
 			$('<div></div>')
 				.addClass('nmk-colorswatch-color')
 				.css('backgroundColor', color)
-				.data('colorswatch-color', color)
+				.click(function() {
+					self.value(color);
+					if (self.isInput) {
+						self.hide();
+					}
+				})
 				.appendTo(row);
 		});
 	},
@@ -63,9 +73,17 @@ $.widget('nmk.colorswatch', {
 		}
 		$(document).bind('mousedown keydown', detectBlur);
 	},
-
+	
 	hide: function() {
 		this.swatch.hide();
+	},
+	
+	value: function(value) {
+		this.options.value = value;
+		
+		if (this.isInput) {
+			this.element.val(value);
+		}
 	}
 });
 
