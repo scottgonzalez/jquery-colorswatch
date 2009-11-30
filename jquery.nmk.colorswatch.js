@@ -84,6 +84,17 @@ $.widget('nmk.colorswatch', {
 		if (this.isInput) {
 			this.element.val(value);
 		}
+	},
+	
+	destroy: function() {
+		if (this.isInput) {
+			this.element.unbind('.colorswatch');
+			this.swatch.remove();
+		} else {
+			this.swatch.empty();
+		}
+
+		$.widget.prototype.destroy.apply(this, arguments);
 	}
 });
 
